@@ -1,8 +1,9 @@
-# Facial-Emotion-Recognition-using-OpenCV-and-Deepface
+# Facial Emotion Recognition using OpenCV and Deepface
 This project implements real-time facial emotion detection using the `deepface` library and OpenCV. It captures video from the webcam, detects faces, and predicts the emotions associated with each face. The emotion labels are displayed on the frames in real-time.
+
 This is probably the shortest code to implement realtime emotion monitoring.
-- Give this repository a ⭐ if you liked it, since it took me time to understand and implement this
-- Made with ❤️ by [Manish Tiwari](https://github.com/manish-9245)
+- Give this repository a ⭐ if you liked it, since it took me time to understand and implement this.
+- Edited by ***Frnn4268***
 
 ## Dependencies
 
@@ -11,20 +12,22 @@ This is probably the shortest code to implement realtime emotion monitoring.
 
 ## Usage
 ### Initial steps:
-- Git clone this repository Run: `git clone https://github.com/manish-9245/Facial-Emotion-Recognition-using-OpenCV-and-Deepface.git`
-- Run: `cd Facial-Emotion-Recognition-using-OpenCV-and-Deepface`
+- Git clone this repository Run: `https://github.com/Frnn4268/Facial-Emotion-Recognition.git`
+
+- Run: `cd Facial-Emotion-Recognition`
 1. Install the required dependencies:
    - You can use `pip install -r requirements.txt`
-   - Or you can install dependencies individually:
-      - `pip install deepface`
-      - `pip install tf_keras`
-      - `pip install opencv-python`
 
 2. Download the Haar cascade XML file for face detection:
    - Visit the [OpenCV GitHub repository](https://github.com/opencv/opencv/tree/master/data/haarcascades) and download the `haarcascade_frontalface_default.xml` file.
 
 3. Run the code:
-   - Execute the Python script.
+- If you can run the ***desktop*** version execute:
+>    `python emotion.py`  
+
+- Or  if you can run the ***web*** version execute: 
+> `python app.py`
+
    - The webcam will open, and real-time facial emotion detection will start.
    - Emotion labels will be displayed on the frames around detected faces.
 
