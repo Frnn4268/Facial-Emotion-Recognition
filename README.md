@@ -19,17 +19,17 @@ This is probably the shortest code to implement realtime emotion monitoring.
    - You can use `pip install -r requirements.txt`
 
 2. Download the Haar cascade XML file for face detection:
-   - Visit the [OpenCV GitHub repository](https://github.com/opencv/opencv/tree/master/data/haarcascades) and download the `haarcascade_frontalface_default.xml` file.
+	- Visit the [OpenCV GitHub repository](https://github.com/opencv/opencv/tree/master/data/haarcascades) and download the `haarcascade_frontalface_default.xml` file.
    
 3. Download the Shape Predictor:
-  - Visit the [Shapre Predictor 68 face landmarks](https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat) and download the `shape_predictor_68_face_landmarks.dat` file.
+	- Visit the [Shapre Predictor 68 face landmarks](https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat) and download the `shape_predictor_68_face_landmarks.dat` file.
 
 4. Run the code:
- - If you can run the ***desktop*** version execute:
- >    `python emotion.py`  
+	- If you can run the ***desktop*** version execute:
+	> `python emotion.py`  
 
- - Or  if you can run the ***web*** version execute: 
- > `python app.py`
+	- Or  if you can run the ***web*** version execute: 
+	> `python app.py`
 
    - The webcam will open, and real-time facial emotion detection will start.
    - Emotion labels will be displayed on the frames around detected faces.
