@@ -1,12 +1,16 @@
 from flask import Flask, render_template, Response
 import cv2
 from deepface import DeepFace
+import dlib
 import time
 
 app = Flask(__name__)
 
 # Load face cascade classifier
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+# Load dlib's face detector and shape predictor
+detector = dlib.get_frontal_face_detector()
+predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 # Dictionary to translate emotions to Spanish
 emotions_translation = {
@@ -19,27 +23,36 @@ emotions_translation = {
     'neutral': 'neutral'
 }
 
+def draw_face_points(frame, face):
+    # Get the landmarks/parts for the face
+    landmarks = predictor(frame, face)
+    
+    # Draw points on the eyes, eyebrows, and mouth
+    for i in range(36, 48):  # Eyes
+        cv2.circle(frame, (landmarks.part(i).x, landmarks.part(i).y), 1, (255, 0, 0), -1)
+    for i in range(17, 27):  # Eyebrows
+        cv2.circle(frame, (landmarks.part(i).x, landmarks.part(i).y), 1, (255, 0, 0), -1)
+    for i in range(48, 68):  # Mouth
+        cv2.circle(frame, (landmarks.part(i).x, landmarks.part(i).y), 1, (255, 0, 0), -1)
+
 def detect_emotion(frame):
     # Convert frame to grayscale
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Convert grayscale frame to RGB format
-    rgb_frame = cv2.cvtColor(gray_frame, cv2.COLOR_GRAY2RGB)
+    # Detect faces in the frame using dlib
+    dlib_faces = detector(gray_frame)
 
-    # Detect faces in the frame
-    faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-
-    for (x, y, w, h) in faces:
+    for face in dlib_faces:
+        x, y, w, h = (face.left(), face.top(), face.width(), face.height())
+        
         # Draw rectangle around face
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 255, 255), 2)  # White color for the rectangle
 
-        # Draw mesh of points on face
-        for i in range(x, x + w, 10):
-            for j in range(y, y + h, 10):
-                cv2.circle(frame, (i, j), 1, (255, 0, 0), -1)
+        # Draw facial landmarks on the face
+        draw_face_points(frame, face)
                 
         # Extract the face ROI (Region of Interest)
-        face_roi = rgb_frame[y:y + h, x:x + w]
+        face_roi = frame[y:y + h, x:x + w]
 
         # Perform emotion analysis on the face ROI
         result = DeepFace.analyze(face_roi, actions=['emotion'], enforce_detection=False)
